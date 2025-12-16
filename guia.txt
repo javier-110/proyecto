@@ -1,0 +1,119 @@
+LISTA DE DEPENDENCIAS DEL PROYECTO
+==================================
+
+ejecutar
+npm run dev
+python manage.py runserver
+python manage.py send_loyalty_promos
+
+CUENTAS:
+javier@gmail.com
+javier
+
+empresa@gmail.com
+empresa
+trabajador1@gmail.com
+trabajador
+
+empresa2@gmail.com
+empresa
+trabajador2@gmail.com
+trabajador
+
+BACKEND (Python / Django)
+-------------------------
+Instalar con: pip install -r requirements.txt (o instalar manualmente)
+
+- django==4.2
+- djangorestframework
+- djangorestframework-simplejwt
+- django-cors-headers
+- mysqlclient
+- reportlab
+- twilio
+
+FRONTEND (React / Vite)
+-----------------------
+Instalar con: cd frontend && npm install
+
+Dependencias Principales:
+- react
+- react-dom
+- react-router-dom
+- axios
+
+Dependencias de Desarrollo:       cd frontend   npm run dev
+- vite
+- eslint
+- @vitejs/plugin-react
+
+BASE DE DATOS
+-------------
+- MySQL (Se requiere un servidor MySQL corriendo, ver settings.py para credenciales)
+
+==================================
+
+PRUEBAS Y TESTING (QA)
+======================
+
+1. Ejecutar TODOS los tests (Recomendado)
+-----------------------------------------
+Comando: `python manage.py test gestion.pruebas`
+Descripción: Ejecuta todas las pruebas unitarias y de integración del sistema.
+
+2. Tests Específicos
+--------------------
+- Solo Modelos (Lógica): `python manage.py test gestion.pruebas.test_models`
+- Solo Vistas (API/Seguridad): `python manage.py test gestion.pruebas.test_views`
+
+3. Prueba de Carga (Stress Test)
+--------------------------------
+Comando: `python manage.py stress_test --users 20`
+Opciones: Puedes cambiar el número de usuarios con `--users N` (ej. 50, 100).
+Descripción: Simula usuarios simultáneos logueándose y consultando cotizaciones para verificar estabilidad (RNF003).
+
+4. Verificar Tareas Programadas (Manual)
+----------------------------------------
+- Alertas de Cotizaciones Vencidas: `python manage.py check_stale_quotes`
+- Servicio de Fidelización: `python manage.py send_loyalty_promos`
+
+==================================
+
+VARIABLES DE ENTORNO (.env)
+---------------------------
+El proyecto utiliza un archivo .env en la raíz para las configuraciones sensibles.
+Debes crear un archivo `.env` con las siguientes claves:
+
+SECRET_KEY=tu_clave_secreta_django
+DEBUG=True  (o False en producción)
+DB_NAME=nombre_base_datos
+DB_USER=usuario_db
+DB_PASSWORD=password_db
+DB_HOST=localhost (o host de producción)
+DB_PORT=3306
+EMAIL_HOST_USER=tu_email@gmail.com
+EMAIL_HOST_PASSWORD=tu_app_password
+
+==================================
+
+DESPLIEGUE EN PRODUCCIÓN (Docker / AWS)
+---------------------------------------
+Para desplegar el proyecto en un entorno de producción (ej. AWS EC2, DigitalOcean):
+
+1. Docker:
+   - Construir imagen: `docker build -t sistema-cotizaciones .`
+   - Correr contenedor: `docker run -p 8000:8000 --env-file .env sistema-cotizaciones`
+
+2. Servidor (Gunicorn + WhiteNoise):
+   - El proyecto ya está configurado con `gunicorn` como servidor de aplicaciones.
+   - `whitenoise` está configurado para servir archivos estáticos sin necesidad de Nginx.
+   - Archivo de configuración: `gunicorn_config.py`.
+
+==================================
+
+DOCUMENTACIÓN DE API (Swagger)
+------------------------------
+Una vez que el servidor esté corriendo, puedes acceder a la documentación interactiva de la API en:
+
+- Swagger UI: http://localhost:8000/swagger/
+- ReDoc: http://localhost:8000/redoc/

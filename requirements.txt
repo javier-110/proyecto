@@ -1,0 +1,14 @@
+django==4.2
+djangorestframework
+djangorestframework-simplejwt
+django-cors-headers
+mysqlclient
+reportlab
+twilio
+django-filter
+python-decouple
+drf-yasg
+waitress
+whitenoise
+psycopg2-binary
+python-dotenv
